@@ -2,7 +2,7 @@
 #
 # Installs and manages the PIDService
 #
-# === Paramaters
+# === Parameters
 #
 # [*servername*] the fqdn name of the server.
 # [*enable_pidsvc_proxy*] true (default) if /pidsvc should be proxied from localhost:8080/pidsvc
