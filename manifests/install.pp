@@ -19,7 +19,7 @@ class pidservice::install {
   
   class { 'apache':
     servername    => 'test.liberator.zen.landcareresearch.co.nz',
-    default_vhost  => false,
+    default_vhost => false,
   }
 
   include apache::mod::rewrite
@@ -30,30 +30,31 @@ class pidservice::install {
   # define resources to install for pidservice
   $tomcat_resources = {
     pidsvc => {
-			'name' => 'jdbc/pidsvc',
-			'auth' => 'Container',
-			'type' => 'javax.sql.DataSource',
-			'driverClassName' => 'org.postgresql.Driver',
-			'url' => "jdbc:postgresql://$pidservice::servername:5432/pidsvc",
-			'username' => "$pidservice::db_user",
-			'password' => "$pidservice::db_passwd",
-			'maxActive' => '-1',
-			'minIdle' => '0',
-			'maxIdle' => '10',
-			'maxWait' => '10000',
-			'minEvictableIdleTimeMillis' => '300000',
-			'timeBetweenEvictionRunsMillis' => '300000',
-			'numTestsPerEvictionRun' => '20',
-			'poolPreparedStatements' => 'true',
-			'maxOpenPreparedStatements' => '100',
-			'testOnBorrow' => 'true',
-			'accessToUnderlyingConnectionAllowed' => 'true',
-			'validationQuery' => 'SELECT VERSION();'
+      'name'                                => 'jdbc/pidsvc',
+      'auth'                                => 'Container',
+      'type'                                => 'javax.sql.DataSource',
+      'driverClassName'                     => 'org.postgresql.Driver',
+      'url'                                 =>
+            "jdbc:postgresql://${pidservice::servername}:5432/pidsvc",
+      'username'                            => $pidservice::db_user,
+      'password'                            => $pidservice::db_passwd,
+      'maxActive'                           => '-1',
+      'minIdle'                             => '0',
+      'maxIdle'                             => '10',
+      'maxWait'                             => '10000',
+      'minEvictableIdleTimeMillis'          => '300000',
+      'timeBetweenEvictionRunsMillis'       => '300000',
+      'numTestsPerEvictionRun'              => '20',
+      'poolPreparedStatements'              => true,
+      'maxOpenPreparedStatements'           => '100',
+      'testOnBorrow'                        => true,
+      'accessToUnderlyingConnectionAllowed' => true,
+      'validationQuery'                     => 'SELECT VERSION();'
     }
   }
   
   # note, java6 will be installed as a dependancy for tomcat6
-  class { 'tomcat6': 
+  class { 'tomcat6':
     resources => $tomcat_resources,
   }
   
@@ -69,7 +70,8 @@ class pidservice::install {
     order       => '001',
   }
 
-  postgresql::server::pg_hba_rule { 'local is for Unix domain socket connections only':
+  postgresql::server::pg_hba_rule {
+    'local is for Unix domain socket connections only':
     type        => 'local',
     user        => 'all',
     auth_method => 'peer',
@@ -99,10 +101,9 @@ class pidservice::install {
     order       => '101',
   }
 
-  class { 'postgresql::server': 
-    listen_addresses => $pidservice::listen_addresses,
-    #ipv4acls => $pidservice::ipv4_acls,
-    postgres_password => $pidservice::postgres_password,
+  class { 'postgresql::server':
+    listen_addresses     => $pidservice::listen_addresses,
+    postgres_password    => $pidservice::postgres_password,
     pg_hba_conf_defaults => false,
   }
 }

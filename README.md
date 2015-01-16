@@ -1,6 +1,6 @@
 # pidservice
 
-Author: Michael Speth <spethm@landcareresearch.co.nz>
+[![Build Status](https://travis-ci.org/Conzar/pidservice.svg?branch=master)](https://travis-ci.org/Conzar/pidservice)
 
 ## About
 
@@ -45,9 +45,11 @@ Defaults to true.  If false, proxypass and rewrite_rules are ignored.
 
 ## Usage
 
+```
 	class {'pidservice':
 		servername => 'localhost',
 	}
+```
 
 ## License
 

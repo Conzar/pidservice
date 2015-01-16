@@ -4,16 +4,35 @@
 #
 # === Parameters
 #
-# [*servername*] the fqdn name of the server.
-# [*enable_pidsvc_proxy*] true (default) if /pidsvc should be proxied from localhost:8080/pidsvc
-# [*proxypass*] an array for the proxypass rules for the main vhost.
-# [*rewrite_rules*] an array for the rewrite rules for the main vhost.
-# [*db_passwd*] the database password for the pidsvc-admin user.
-# [*listen_addresses*] the address range that is allowed for the postgresql db.
-# [*ipv4_acls*] Sets the acls for the postgresql server.
-# [*postgres_password*] The password to the postgresql database
-# [*use_default_vhost*] allow this module to control the vhost and false otherwise. 
-#                       defaults to true.  If false, proxypass and rewrite_rules are ignored.
+# [*servername*]
+#   The fqdn name of the server.
+#
+# [*enable_pidsvc_proxy*]
+#   True (default) if /pidsvc should be proxied from localhost:8080/pidsvc
+#
+# [*proxypass*]
+#   An array for the proxypass rules for the main vhost.
+#
+# [*rewrite_rules*]
+#   An array for the rewrite rules for the main vhost.
+#
+# [*headers*]
+#   Adds lines to replace the header for the apache vhost configuration.
+#
+# [*db_passwd*]
+#   The database password for the pidsvc-admin user.
+#
+# [*listen_addresses*]
+#   The address range that is allowed for the postgresql db.
+#
+# [*ipv4_acls*]
+#   Sets the acls for the postgresql server.
+#
+# [*postgres_password*]
+#   The password to the postgresql database
+# [*use_default_vhost*]
+#   Allow this module to control the vhost and false otherwise. 
+#   Defaults to true.  If false, proxypass and rewrite_rules are ignored.
 #
 # === Variables
 # [*db_user*] the username of the database
@@ -35,6 +54,7 @@ class pidservice (
   $enable_pidsvc_proxy = true,
   $proxypass = undef,
   $rewrite_rules = undef,
+  $headers = undef,
   $db_passwd = 'pass',
   $listen_addresses = '*',
   $ipv4_acls = [
