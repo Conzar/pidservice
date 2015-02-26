@@ -2,7 +2,6 @@
 
 [![Puppet Forge](http://img.shields.io/puppetforge/v/conzar/pidservice.svg)](https://forge.puppetlabs.com/conzar/pidservice)
 [![Build Status](https://travis-ci.org/Conzar/pidservice.svg?branch=master)](https://travis-ci.org/Conzar/pidservice)
-[![Project Stats](https://www.openhub.net/p/pidservice/widgets/project_thin_badge.gif)](https://www.openhub.net/p/pidservice)
 
 ## About
 
