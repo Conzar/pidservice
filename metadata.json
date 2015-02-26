@@ -1,6 +1,6 @@
 {
   "name": "conzar-pidservice",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "author": "Michael Speth",
   "summary": "Installs and manages the PIDService",
   "license": "GPL-3.0+",
@@ -27,6 +27,10 @@
     {
       "name": "conzar-tomcat6",
       "version_requirement": ">= 0.1.0"
-    }
+    },
+    {
+      "name": "maestrodev-wget",
+   	  "version_requirement": ">= 1.5.6"
+  	}
   ]
 }

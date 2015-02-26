@@ -1,11 +1,12 @@
 # pidservice
 
+[![Puppet Forge](http://img.shields.io/puppetforge/v/conzar/pidservice.svg)](https://forge.puppetlabs.com/conzar/pidservice)
 [![Build Status](https://travis-ci.org/Conzar/pidservice.svg?branch=master)](https://travis-ci.org/Conzar/pidservice)
+[![Project Stats](https://www.openhub.net/p/pidservice/widgets/project_thin_badge.gif)](https://www.openhub.net/p/pidservice)
 
 ## About
 
-Installs the PIDService and software required to support the PIDService
-such as Tomcat6 & Postgresql.
+Installs the [PIDService](https://www.seegrid.csiro.au/wiki/Siss/PIDService) and software required to support the PIDService such as Tomcat6 & Postgresql.
 
 ## Configuration
 
@@ -30,18 +31,22 @@ An array for the rewrite rules for the main vhost.
 #### `db_passwd`
 The database password for the pidsvc-admin user.
 
+#### `postgres_password`
+The password to the postgresql database
+
+#### `postgres_version`
+The postgresql version to use.  If left undef, uses the default for the postgresql puppet module.
+Default: undef
+
+#### `use_default_vhost`
+Allow this module to control the vhost and false otherwise. 
+Defaults to true.  If false, proxypass and rewrite_rules are ignored.
+
 #### `listen_addresses`
 The address range that is allowed for the postgresql db.
 
 #### `ipv4_acls`
 Sets the acls for the postgresql server.
-
-#### `postgres_password`
-The password to the postgresql database
-
-#### `use_default_vhost`
-Allow this module to control the vhost and false otherwise. 
-Defaults to true.  If false, proxypass and rewrite_rules are ignored.
 
 ## Usage
 
@@ -51,19 +56,12 @@ Defaults to true.  If false, proxypass and rewrite_rules are ignored.
 	}
 ```
 
-## License
+Open a web browser to http://<hostname>:8080/pidsvc
 
-GPL version 3
+## Limitations
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    any later version.
+Only works with debian based OS's.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+## Development
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, [see](http://www.gnu.org/licenses/).
+The module is open source and available on github.  Please fork!

@@ -37,7 +37,7 @@ class pidservice::config {
       ]
   
       # concat the arrays.
-      if $proxypass_array == undef {
+      if $pidservice::proxypass == undef {
         $proxypass_array_total = $pidservice::proxypass
       }else {
         $proxypass_array_total = concat($pidservice::proxypass,$proxypass_array)
@@ -71,10 +71,17 @@ class pidservice::config {
     require  => Postgresql::Server::Role ['pidsvc-admin'],
   }
 
-  file {"${root}/postgresql.sql":
-    ensure => file,
-    source => 'puppet:///modules/pidservice/postgresql.sql',
+  wget::fetch {'postgresql.sql':
+    destination => "${root}/postgresql.sql",
+    source      => "https://www.seegrid.csiro.au/subversion/PID/trunk/pidsvc/\
+src/main/db/postgresql.sql",
+    require     => File[$root],
   }
+
+#  file {"${root}/postgresql.sql":
+#    ensure => file,
+#    source => 'puppet:///modules/pidservice/postgresql.sql',
+#  }
 
   # create the language, need to do this via command since
   # its not in the postgresql module and not time in the project to 
@@ -87,7 +94,7 @@ class pidservice::config {
     exec_command => '/usr/bin/createlang plpgsql pidsvc',
     user         => 'postgres',
     require      => Postgresql::Server::Db['pidsvc'],
-    returns      => ['0','1'],
+    returns      => ['0','1','2'],
   }
   ->
 
@@ -96,7 +103,8 @@ class pidservice::config {
     exec_command => "/usr/bin/psql -d pidsvc -f ${root}/postgresql.sql",
     user         => 'postgres',
     require      => [ Check_run::Task[$task_language],
-                        File["${root}/postgresql.sql"],
+                        #File["${root}/postgresql.sql"],
+                        Wget::Fetch['postgresql.sql'],
                         Postgresql::Server::Db['pidsvc'],
     ],
     returns      => ['0','1','2'],

@@ -22,19 +22,26 @@
 # [*db_passwd*]
 #   The database password for the pidsvc-admin user.
 #
+# [*postgres_password*]
+#   The password to the postgresql database
+#
+# [*postgres_version*]
+#   The postgresql version to use.  If left undef, uses the default for
+#   the postgresql puppet module.
+#   Default: undef
+#
+# [*use_default_vhost*]
+#   Allow this module to control the vhost and false otherwise. 
+#   Defaults to true.  If false, proxypass and rewrite_rules are ignored.
+#
 # [*listen_addresses*]
 #   The address range that is allowed for the postgresql db.
 #
 # [*ipv4_acls*]
 #   Sets the acls for the postgresql server.
 #
-# [*postgres_password*]
-#   The password to the postgresql database
-# [*use_default_vhost*]
-#   Allow this module to control the vhost and false otherwise. 
-#   Defaults to true.  If false, proxypass and rewrite_rules are ignored.
-#
 # === Variables
+#
 # [*db_user*] the username of the database
 #
 # === Examples
@@ -52,10 +59,13 @@
 class pidservice (
   $servername,
   $enable_pidsvc_proxy = true,
-  $proxypass = undef,
-  $rewrite_rules = undef,
-  $headers = undef,
-  $db_passwd = 'pass',
+  $proxypass           = undef,
+  $rewrite_rules       = undef,
+  $headers             = undef,
+  $db_passwd           = 'pass',
+  $postgres_password   = undef,
+  $postgres_version    = undef,
+  $use_default_vhost   = true,
   $listen_addresses = '*',
   $ipv4_acls = [
 'local   all             postgres                                peer',
@@ -67,8 +77,6 @@ class pidservice (
 # IPv6 local connections:
 'host    all             all             ::1/128                 md5'
 ],
-  $postgres_password = undef,
-  $use_default_vhost = true,
 ){
 
   $db_user = 'pidsvc-admin'

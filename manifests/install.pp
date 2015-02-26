@@ -101,6 +101,15 @@ class pidservice::install {
     order       => '101',
   }
 
+  # check if the postgresql version is to be set.
+  if $pidservice::postgres_version != undef {
+    class { 'postgresql::globals':
+      manage_package_repo => true,
+      version             => $pidservice::postgres_version,
+      before              => Class['postgresql::server'],
+    }
+  }
+
   class { 'postgresql::server':
     listen_addresses     => $pidservice::listen_addresses,
     postgres_password    => $pidservice::postgres_password,
