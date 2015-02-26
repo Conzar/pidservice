@@ -9,6 +9,7 @@ Added postgresql version for the parameters.
  - Fixed a bug with leaving proxypass as undef.
  - Fixed issue with create language.
  - Now dowloading initial sql file from main pidsvc trunk
+ - Added an option to install postgis
 
 ## 2014-05-01 Release 0.1.2
 ### Summary

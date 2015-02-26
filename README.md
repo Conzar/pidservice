@@ -37,6 +37,10 @@ The password to the postgresql database
 The postgresql version to use.  If left undef, uses the default for the postgresql puppet module.
 Default: undef
 
+#### `postgis_version`
+Enable postgis extension for the database with the specified version.
+Default: undef
+
 #### `use_default_vhost`
 Allow this module to control the vhost and false otherwise. 
 Defaults to true.  If false, proxypass and rewrite_rules are ignored.
