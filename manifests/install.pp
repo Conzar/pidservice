@@ -102,8 +102,8 @@ class pidservice::install {
   }
 
   # check if the postgresql version is to be set.
-  if $pidservice::postgres_version != undef  or 
-     $pidservice::postgis_version != undef {
+  if $pidservice::postgres_version != undef  or
+    $pidservice::postgis_version != undef {
     class { 'postgresql::globals':
       manage_package_repo => true,
       version             => $pidservice::postgres_version,
@@ -117,4 +117,9 @@ class pidservice::install {
     postgres_password    => $pidservice::postgres_password,
     pg_hba_conf_defaults => false,
   }
+
+  if $pidservice::postgis_version != undef {
+    class { 'postgresql::server::postgis': }
+  }
+
 }
